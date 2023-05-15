@@ -97,8 +97,7 @@ class LinkedList {
 
   getAt(idx) {
     if(idx >= this.length || idx < 0){
-      console.log(`no value at that index.`)
-      return;
+      throw new Error("Invalid index.");
     }
     let currentIdx = 0;
     let currentNode = this.head;
@@ -114,8 +113,7 @@ class LinkedList {
 
   setAt(idx, val) {
     if(idx >= this.length || idx < 0){
-      console.log(`no value at that index.`)
-      return;
+      throw new Error("Invalid index.");
     }
 
     let currentIdx = 0;
@@ -135,8 +133,7 @@ class LinkedList {
   insertAt(idx, val) {
 
     if(idx > this.length || idx < 0){
-      console.log(`no value at that index.`)
-      return;
+      throw new Error("Invalid index.");
     }
     
     if(idx === this.length ||this.length ===0){
@@ -165,8 +162,7 @@ class LinkedList {
 
   removeAt(idx) {
     if(idx >= this.length || idx < 0){
-      console.log(`no value at that index.`)
-      return;
+      throw new Error("Invalid index.");
     }
 
     // only one item left in list.
@@ -207,7 +203,6 @@ class LinkedList {
 
   average() {
     if(this.length ===0){
-      console.log('no value to calculate')
       return 0;
     }
 
