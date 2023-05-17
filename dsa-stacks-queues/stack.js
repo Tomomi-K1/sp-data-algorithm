@@ -24,11 +24,11 @@ class Stack {
     if(this.isEmpty()){
       this.first= newNode;
       this.last = newNode;
-      this.size++;
-      return;
+   
+    } else{
+      newNode.next = this.first
+      this.first= newNode;
     }
-    newNode.next = this.first
-    this.first= newNode;
     this.size++;
   }
 
@@ -43,10 +43,7 @@ class Stack {
     }
 
     if(this.size ===1){
-      this.first =null;
       this.last = null;
-      this.size = 0;
-      return deleted;
     }
 
     this.first = this.first.next;
@@ -67,7 +64,7 @@ class Stack {
   /** isEmpty(): return true if the stack is empty, otherwise false */
 
   isEmpty() {
-    return this.size ===0 ? true: false;
+    return this.size ===0 ;
   }
 }
 

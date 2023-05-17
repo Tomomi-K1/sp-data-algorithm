@@ -21,16 +21,15 @@ class Queue {
 
   enqueue(val) {
     let newNode = new Node(val);
-    if(this.isEmpty()){
+    if(!this.first){
       this.first = newNode;
       this.last = newNode;
-      this.size++;
-      return;
-    }
+    } else {
     this.last.next = newNode;
     this.last = newNode;
+    }
     this.size++;
-    return;
+    
   }
 
   /** dequeue(): remove the node from the start of the queue
@@ -40,16 +39,11 @@ class Queue {
     if(this.isEmpty()){
       throw new Error('queue is empty');
     }
-    
-    if(this.size ===1){
-      let deleted = this.first.val;
-      this.first = null;
-      this.last = null;
-      this.size =0;
-      return deleted;
-    }
-
     let deleted = this.first.val;
+
+    if(this.size ===1){
+      this.last = null;
+    }
     this.first = this.first.next;
     this.size --;
     return deleted;
@@ -67,10 +61,7 @@ class Queue {
   /** isEmpty(): return true if the queue is empty, otherwise false */
 
   isEmpty() {
-    if(this.size ===0){
-      return true;
-    }
-    return false;
+    return this.size ===0
   }
 }
 
