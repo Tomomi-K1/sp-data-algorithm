@@ -6,41 +6,67 @@ Constraints:
 Time Complexity: O(log N)
 
 Examples:
-             L   M     R
-                   L   R
-
-countZeroes([1,1,1,1,0,0]) // 2   
-             L   M   R
-            L/MR
-              L/R
+             l   M     h
+                 2     5
+countZeroes([1,1,1,1,0,0]) // 2  
+             l   m   h     h =4, l =0 mid = 4+0/2 =2.  mid=0+(4-0)/2 =2
 countZeroes([1,0,0,0,0]) // 4
-             L   R
 countZeroes([0,0,0]) // 3
-             L     R
 countZeroes([1,1,1,1]) // 0
+[1,0]
  */
 function countZeroes(arr) {
-    let leftIdx = 0;
-    let rightIdx = arr.length-1;
-    let middleIdx = Math.floor((leftIdx + rightIdx)/2);
 
-    while(leftIdx <= rightIdx){
-        // console.log(`leftIdx :${leftIdx}, middle:${middleIdx}, right:${rightIdx}`)
-        middleIdx = Math.floor((leftIdx + rightIdx)/2);
-        if(arr[leftIdx] ===0){
-            return arr.length-leftIdx;
-        } else if(arr[rightIdx]===1){
-            return 0;
-        } else if(arr[middleIdx]===1){
-            leftIdx = middleIdx +1;
-        } else if(arr[middleIdx]===0){
-            if(leftIdx===middleIdx-1){
-                leftIdx=middleIdx;
-            } else{
-                rightIdx = middleIdx-1;
-            }
-        }     
+    // key is to find first zero
+    let firstZero = findFirst(arr);
+    if(firstZero === -1) return 0;
+
+    return arr.length-firstZero;
+
+} 
+
+function findFirst(arr, low=0, high = arr.length-1){
+    
+    if(high >= low){
+        // as long as high is bigger than or equal to low
+        // which is in most of cases.
+        // low + Math.floor((high-low)/2) is to ensure middle is grabbed even in divided subarray.
+        let mid = low + Math.floor((high-low)/2)
+        // let mid = Math.floor((high+low)/2)
+        debugger;
+        // 1. mid ===0 && arr[0] ==0
+        // 2. arr[mid]は０でその左の数字が1の時　mid ==first zero
+        if((mid===0 || arr[mid-1]===1) && arr[mid]===0){
+            return mid;
+        }else if (arr[mid]===1){
+            return findFirst(arr, mid+1, high);
+        }
+        return findFirst(arr, low, mid-1)
     }
+    return -1;
 }
+
+    // let leftIdx = 0;
+    // let rightIdx = arr.length-1;
+    // let middleIdx = Math.floor((leftIdx + rightIdx)/2);
+
+    // while(leftIdx <= rightIdx){
+    //     // console.log(`leftIdx :${leftIdx}, middle:${middleIdx}, right:${rightIdx}`)
+    //     middleIdx = Math.floor((leftIdx + rightIdx)/2);
+    //     if(arr[leftIdx] ===0){
+    //         return arr.length-leftIdx;
+    //     } else if(arr[rightIdx]===1){
+    //         return 0;
+    //     } else if(arr[middleIdx]===1){
+    //         leftIdx = middleIdx +1;
+    //     } else if(arr[middleIdx]===0){
+    //         if(leftIdx===middleIdx-1){
+    //             leftIdx=middleIdx;
+    //         } else{
+    //             rightIdx = middleIdx-1;
+    //         }
+    //     }     
+    // }
+
 
 module.exports = countZeroes

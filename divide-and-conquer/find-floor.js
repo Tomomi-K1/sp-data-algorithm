@@ -54,4 +54,32 @@ function findFloor(arr, x) {
 
 }
 
+
+/*springboard asnwer  instead of while loop this use recursion*/
+ function findFloor2(arr, num, low=0, high =arr.length-1){
+    // what kind of case?
+    if(low > high) return -1; 
+    if( num > arr[high]) return arr[high];
+
+    let mid = Math.floor((high+low)/2);
+
+    if(arr[mid]===num) return arr[mid];
+
+    if(mid>0 && arr[mid-1] <=num && num <arr[mid]){
+      // midがArrayの一番初めのElementじゃなくて、
+      // midの隣の値が、num より小さく、
+      // midの値が　numより大きい。
+      // ということは、num==arr[mid]はもうチェックしたので、一番Numに近いけどnumより小さい数はarr[mid-1]となる
+      return arr[mid-1]
+    }
+
+    if(num <arr[mid]){
+      // arrayの左側を調べる
+      return findFloor2(arr, num, low, mid-1)
+    }
+      //arrayの右側を調べる 　
+    return findFloor2(arr, num, mid+1, high)
+
+ }
+ 
 module.exports = findFloor
